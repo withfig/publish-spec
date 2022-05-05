@@ -1,0 +1,30 @@
+name: 'publish-spec-to-team'
+description: 'Publish a fig spec to fig-teams'
+inputs:
+  token:
+    description: 'A fig access token'
+    required: true
+  name:
+    description: 'The name of the spec'
+    required: true
+  spec-path:
+    description: 'The path to a spec in the current repository'
+  binary-path:
+    description: 'The path of the binary to run to generate the spec'
+  subcommand-name:
+    description: 'The subcommand of the binary used to generate the spec'
+  framework:
+    description: 'Framework used to build the CLI'
+runs:
+  using: "composite"
+  steps:
+    - uses: actions/setup-node@v3
+    - run: |
+        npx @fig/publish-spec-to-team@1 \
+          --token ${{ inputs.token }} \
+          --name ${{ inputs.name }} \
+          --spec-path ${{ inputs.spec-path }} \
+          --binary-path ${{ inputs.binary-path }} \
+          --subcommand-name ${{ inputs.subcommand-name }} \
+          --framework ${{ inputs.framework }}
+      shell: bash
