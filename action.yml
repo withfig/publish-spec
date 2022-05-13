@@ -21,12 +21,20 @@ runs:
   steps:
     - uses: actions/setup-node@v3
     - run: |
-        npx @fig/publish-spec-to-team@1 \
-          --token ${{ inputs.token }} \
-          --name ${{ inputs.name }} \
-          --team ${{ inputs.team }} \
-          --spec-path ${{ inputs.spec-path }} \
-          --binary-path ${{ inputs.binary-path }} \
-          --subcommand-name ${{ inputs.subcommand-name }} \
-          --framework ${{ inputs.framework }}
+        OPTIONS=""
+        OPTIONS+="${NAME:+ --name $NAME}"
+        OPTIONS+="${TEAM:+ --team $TEAM}"
+        OPTIONS+="${SPEC_PATH:+ --spec-path $SPEC_PATH}"
+        OPTIONS+="${BINARY_PATH:+ --binary-path $BINARY_PATH}"
+        OPTIONS+="${SUBCOMMAND_NAME:+ --subcommand-name $SUBCOMMAND_NAME}"
+        OPTIONS+="${FRAMEWORK:+ --framework $FRAMEWORK}"
+        npx @fig/publish-spec-to-team@1 $OPTIONS
+      env:
+        FIG_API_TOKEN: ${{ inputs.token }}
+        NAME: ${{ inputs.name }}
+        TEAM: ${{ inputs.team }}
+        SPEC_PATH: ${{ inputs.spec-path }}
+        BINARY_PATH: ${{ inputs.binary-path }}
+        SUBCOMMAND_NAME: ${{ inputs.subcommand-name }}
+        FRAMEWORK: ${{ inputs.framework }}
       shell: bash
