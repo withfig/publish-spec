@@ -6,8 +6,8 @@ inputs:
     required: true
   name:
     description: 'The name of the spec'
-  namespace:
-    description: 'The namespace of the spec'
+  team:
+    description: 'The target team of the spec'
   spec-path:
     description: 'The path to a spec in the current repository'
   binary-path:
@@ -24,7 +24,7 @@ runs:
         npx @fig/publish-spec-to-team@1 \
           --token ${{ inputs.token }} \
           --name ${{ inputs.name }} \
-          --namespace ${{ inputs.namespace }}
+          --team ${{ inputs.team }}
           --spec-path ${{ inputs.spec-path }} \
           --binary-path ${{ inputs.binary-path }} \
           --subcommand-name ${{ inputs.subcommand-name }} \
