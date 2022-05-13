@@ -24,7 +24,7 @@ runs:
         npx @fig/publish-spec-to-team@1 \
           --token ${{ inputs.token }} \
           --name ${{ inputs.name }} \
-          --team ${{ inputs.team }}
+          --team ${{ inputs.team }} \
           --spec-path ${{ inputs.spec-path }} \
           --binary-path ${{ inputs.binary-path }} \
           --subcommand-name ${{ inputs.subcommand-name }} \
