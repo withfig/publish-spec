@@ -28,6 +28,7 @@ runs:
         OPTIONS+="${BINARY_PATH:+ --binary-path $BINARY_PATH}"
         OPTIONS+="${SUBCOMMAND_NAME:+ --subcommand-name $SUBCOMMAND_NAME}"
         OPTIONS+="${FRAMEWORK:+ --framework $FRAMEWORK}"
+        echo "Running with options: $OPTIONS"
         npx @fig/publish-spec-to-team@1 $OPTIONS
       env:
         FIG_API_TOKEN: ${{ inputs.token }}
