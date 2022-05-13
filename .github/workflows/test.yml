@@ -1,0 +1,61 @@
+name: 'Test'
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+      - 'releases/*'
+  workflow_dispatch:
+  repository_dispatch:
+    # Use this hook to run tests for updates to the backend or to the @fig/push-spec-to-team CLI
+    types: ["dependency-update"]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish spec to team
+        id: test
+        uses: ./
+        with:
+          token: ${{ secrets.FIG_API_TESTING_TOKEN }}
+          name: test
+          team: testing-ci
+          spec-path: ./test-data/test.ts
+          framework: cobra
+        continue-on-error: true
+      - name: Check if previous step failed
+        if: steps.test.outcome != 'success'
+        run: exit 1
+ 
+  test-minimal-inputs:
+    runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Publish spec to team
+          id: test
+          uses: ./
+          with:
+            token: ${{ secrets.FIG_API_TESTING_TOKEN }}
+            team: testing-ci
+            spec-path: ./test-data/test-minimal-inputs.ts
+          continue-on-error: true
+        - name: Check if previous step failed
+          if: steps.test.outcome != 'success'
+          run: exit 1  
+
+  test-failing:
+    runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v3
+        - name: Publish spec to team
+          id: test
+          uses: ./
+          with:
+            token: ${{ secrets.FIG_API_TESTING_TOKEN }}
+            team: testing-ci
+            spec-path: ./test-data/test-failing.ts
+          continue-on-error: true
+        - name: Check if previous step succeeded
+          if: steps.test.outcome == 'success'
+          run: exit 1  
