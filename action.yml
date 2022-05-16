@@ -31,7 +31,7 @@ runs:
         echo "Running with options: $OPTIONS"
         npx @fig/publish-spec-to-team@1 $OPTIONS
       env:
-        FIG_API_TOKEN: ${{ inputs.token }}
+        FIG_API_TOKEN: ${{ inputs.token }} # This env variable id the one used by the npx command
         NAME: ${{ inputs.name }}
         TEAM: ${{ inputs.team }}
         SPEC_PATH: ${{ inputs.spec-path }}

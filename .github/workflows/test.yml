@@ -38,7 +38,7 @@ jobs:
         with:
           token: ${{ secrets.FIG_API_TESTING_TOKEN }}
           team: testing-ci
-          spec-path: ./test-data/test-minimal-inputs.ts
+          spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step failed
         if: steps.test.outcome != 'success'
@@ -55,6 +55,22 @@ jobs:
           token: ${{ secrets.FIG_API_TESTING_TOKEN }}
           team: testing-ci
           spec-path: ./test-data/test-failing.ts
+        continue-on-error: true
+      - name: Check if previous step succeeded
+        if: steps.test.outcome == 'success'
+        run: exit 1  
+
+  test-missing-token:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Publish spec to team
+        id: test
+        uses: ./
+        with:
+          token: ''
+          team: testing-ci
+          spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step succeeded
         if: steps.test.outcome == 'success'
