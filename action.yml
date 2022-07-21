@@ -1,4 +1,4 @@
-name: 'publish-spec-to-team'
+name: 'publish-spec'
 description: 'Publish a fig spec to fig-teams'
 inputs:
   token:
