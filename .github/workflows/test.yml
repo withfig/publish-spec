@@ -24,7 +24,7 @@ jobs:
           framework: cobra
         continue-on-error: true
       - name: Check if previous step failed
-        if: steps.test.outcome != 'success'
+        if: steps.test-1.outcome != 'success'
         run: exit 1
  
   test-minimal-inputs:
@@ -41,7 +41,7 @@ jobs:
           spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step failed
-        if: steps.test.outcome != 'success'
+        if: steps.test-2.outcome != 'success'
         run: exit 1  
 
   test-failing:
@@ -57,7 +57,7 @@ jobs:
           spec-path: ./test-data/test-failing.ts
         continue-on-error: true
       - name: Check if previous step succeeded
-        if: steps.test.outcome == 'success'
+        if: steps.test-3.outcome == 'success'
         run: exit 1  
 
   test-missing-token:
@@ -73,5 +73,5 @@ jobs:
           spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step succeeded
-        if: steps.test.outcome == 'success'
+        if: steps.test-4.outcome == 'success'
         run: exit 1  
