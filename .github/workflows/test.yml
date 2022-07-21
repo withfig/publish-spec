@@ -15,12 +15,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish spec to team
-        id: test
+        id: test-1
         uses: ./
         with:
           token: ${{ secrets.FIG_API_TESTING_TOKEN }}
-          name: test
-          team: testing-ci
+          team: fig-test-pub-spec-gh
           spec-path: ./test-data/test.ts
           framework: cobra
         continue-on-error: true
@@ -33,11 +32,12 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish spec to team
-        id: test
+        id: test-2
         uses: ./
         with:
           token: ${{ secrets.FIG_API_TESTING_TOKEN }}
-          team: testing-ci
+          team: fig-test-pub-spec-gh
+          name: test-2
           spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step failed
@@ -49,11 +49,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish spec to team
-        id: test
+        id: test-3
         uses: ./
         with:
           token: ${{ secrets.FIG_API_TESTING_TOKEN }}
-          team: testing-ci
+          team: fig-test-pub-spec-gh
           spec-path: ./test-data/test-failing.ts
         continue-on-error: true
       - name: Check if previous step succeeded
@@ -65,11 +65,11 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Publish spec to team
-        id: test
+        id: test-4
         uses: ./
         with:
           token: ''
-          team: testing-ci
+          team: fig-test-pub-spec-gh
           spec-path: ./test-data/test.ts
         continue-on-error: true
       - name: Check if previous step succeeded
